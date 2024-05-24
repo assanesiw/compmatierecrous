@@ -11,6 +11,7 @@ RUN npm install -g serve
 # Install app dependencies
 RUN yarn
 COPY . .
+ENV VITE_COMP=https://qwertyuiop.crousz.app
 # Bundle app source
 RUN yarn build
 

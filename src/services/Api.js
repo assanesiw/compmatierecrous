@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const instance = axios.create({
-    baseURL: 'https://qwertyuiop.crousz.app',
+    baseURL: import.meta.env.VITE_COMP,
     timeout: 3000,
   });

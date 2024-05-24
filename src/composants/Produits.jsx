@@ -216,7 +216,7 @@ gradient={{ from: 'blue', to: 'green', deg: 50 }}
 >
 {row.catalogue}
 </Badge>
-const proTemplate = (row) =>   <Avatar src={`http://localhost:3000/uploads/produits/${row?.photo}`} 
+const proTemplate = (row) =>   <Avatar src={`${import.meta.env.VITE_COMP}/uploads/produits/${row?.photo}`} 
  size={55} radius='xs'/>
 const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' ' 
       value={row.prixUnitaire}/>

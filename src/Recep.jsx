@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom"
 import { getReception } from "./services/receptionservice";
 import { Button, Table } from "@mantine/core";
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { font } from "./vfs_fonts";
+pdfMake.vfs = font
 import {image} from "./composants/image";
 import {photo} from "./composants/photo";
 import { format } from 'date-fns';

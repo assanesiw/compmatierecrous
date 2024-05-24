@@ -26,8 +26,8 @@ import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { TfiWrite } from 'react-icons/tfi';
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { font } from "./vfs_fonts";
+pdfMake.vfs = font
 
 
 

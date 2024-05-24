@@ -6,8 +6,8 @@ import { useQuery } from "react-query";
 import { getProdits } from "./services/produitsservice";
 import { Badge, Button, NumberFormatter } from "@mantine/core";
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { font } from "./vfs_fonts";
+pdfMake.vfs = font
 import {image} from "./composants/image";
 
 

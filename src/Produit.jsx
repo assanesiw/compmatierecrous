@@ -9,8 +9,8 @@ import { notifications } from "@mantine/notifications";
 import { FileInput, Avatar, Button as Buttonm, LoadingOverlay} from "@mantine/core";
 import { FaImage } from "react-icons/fa";
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { font } from "./vfs_fonts";
+pdfMake.vfs = font
 
 function Produit() {
     const {id} = useParams();

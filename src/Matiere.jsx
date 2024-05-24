@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Modal, Button, LoadingOverlay, NumberInput, ActionIcon } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Text, SimpleGrid, TextInput, Group, Divider,Select } from '@mantine/core';
-import { FcPlus} from "react-icons/fc";
+import { Text, SimpleGrid, TextInput, Group, Divider} from '@mantine/core';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { z } from 'zod';
@@ -17,8 +16,8 @@ import { format } from 'date-fns';
 import { IoMdAdd } from 'react-icons/io';
 import { TfiWrite } from 'react-icons/tfi';
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { font } from "./vfs_fonts";
+pdfMake.vfs = font
 import {image} from "./composants/image";
 
 

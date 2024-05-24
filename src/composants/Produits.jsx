@@ -22,11 +22,11 @@ import 'dayjs/locale/fr'
 import { getCatalogue } from "../services/catalogueservice";
 import { FilterMatchMode } from "primereact/api";
 import { useState } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { Avatar } from "antd";
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { font } from "../vfs_fonts";
+pdfMake.vfs = font;
 
 
 

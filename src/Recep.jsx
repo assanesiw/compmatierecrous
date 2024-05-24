@@ -157,7 +157,7 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                     {
                       text: [
                         
-                        {text: 'M.Ansou DIEDHIOU\n', fontSize: 12, bold:true, alignment:'center'},
+                        {text: 'M.Ansoumana DIEDHIOU\n', fontSize: 12, bold:true, alignment:'center'},
                         {text: '................\n', fontSize: 12, bold: true, alignment:'center'},
                         {text: 'President\n', fontSize: 12, bold: true, alignment:'center'},
                         
@@ -167,11 +167,9 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                     {
                       text: [
                         
-                        {text: 'M.Assane SOW\n', fontSize: 12, bold:true, alignment:'center'},
+                        {text: 'M.Mamadou KONTE\n', fontSize: 12, bold:true, alignment:'center'},
                         {text: '................\n', fontSize: 12, bold: true, alignment:'center'},
-                        {text: 'Membre\n', fontSize: 12, bold: true, alignment:'center'},
-                        
-                        
+                        {text: 'Membre\n', fontSize: 12, bold: true, alignment:'center'},   
                       ]
                     }
                   ]

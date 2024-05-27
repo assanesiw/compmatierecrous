@@ -11,12 +11,24 @@ import { format } from 'date-fns';
 
 
 
-
-
 function Recep() {
     const {id} = useParams();
     const key = ['get_reception',id];
     const {data} = useQuery(key,() => getReception(id));
+  
+
+
+    const getTTC = (data) => {
+      return data?.produits?.reduce((acc,val) => acc + (val.produit.prixUnitaire * val.qte) ,0)
+    }
+
+    const getTVA = (data) => {
+      return getTTC(data) * 0.18;
+    }
+
+    const getHT = (data) => {
+      return getTTC(data) - getTVA(data);
+    }
 
 const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
     
@@ -114,13 +126,13 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                      
                       text: [
                         
-                        {text: `\nACHAT DE,  ${data?.produits?.map(e => (e.produit.catalogue))}`,color:'blue', fontSize: 13, bold: true, alignment:'center'},
+                        {text: `\nACHAT DE ${data?.produits[0]?.produit.cat.categorie}`,color:'blue', fontSize: 13, bold: true, alignment:'center'},
                         {text: '\nEnumération des pièces justificatives jointes\n', fontSize: 12, bold: false, alignment:'justify'},
                         {text: '\n	Facture définitive', fontSize: 13, bold: true, alignment:'justify'},
                         {text: '\n	Bordereau de livraison', fontSize: 13, bold: true, alignment:'justify'},
                         {text: '\n	Facture Pro forma\n', fontSize: 13, bold: true, alignment:'justify'},
                         {text: `\nFacture N°: ${data?.numero_bon} du ${format(data?.date,'dd/MM/yyyy')}`,color:'red', fontSize: 12, bold: true, alignment:'justify'},
-                        {text: `\n\nMONTANT: ${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))} FCFA\n\n`, fontSize: 16, bold: true, alignment:'center'},
+                        {text: `\n\nMONTANT: ${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))} FCFA\n\n`, fontSize: 16, bold: true, alignment:'center'} 
                         
                       ]
                     }
@@ -147,7 +159,7 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                       
                       text: [
                         
-                        {text: 'M.Ibrahima DIAVE\n', fontSize: 12, bold:true, alignment:'center'},
+                        {text: 'M.Ansoumana DIEDHIOU\n', fontSize: 12, bold:true, alignment:'center'},
                         {text: '................\n', fontSize: 12, bold: true, alignment:'center'},
                         {text: 'Membre', fontSize: 12, bold: true, alignment:'center'},
                         
@@ -157,7 +169,7 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                     {
                       text: [
                         
-                        {text: 'M.Ansoumana DIEDHIOU\n', fontSize: 12, bold:true, alignment:'center'},
+                        {text: 'M.Mamadou KONTE\n', fontSize: 12, bold:true, alignment:'center'},
                         {text: '................\n', fontSize: 12, bold: true, alignment:'center'},
                         {text: 'President\n', fontSize: 12, bold: true, alignment:'center'},
                         
@@ -167,7 +179,7 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                     {
                       text: [
                         
-                        {text: 'M.Mamadou KONTE\n', fontSize: 12, bold:true, alignment:'center'},
+                        {text: 'M.Ibrahima DUAVE\n', fontSize: 12, bold:true, alignment:'center'},
                         {text: '................\n', fontSize: 12, bold: true, alignment:'center'},
                         {text: 'Membre\n', fontSize: 12, bold: true, alignment:'center'},   
                       ]
@@ -223,9 +235,9 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                    
                     text: [
                         
-                      {text: `\n${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))} FCFA\n`, fontSize: 13, bold: true, alignment:'justify'},
-                        {text: `${formatNumber((data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))*(0.18))} FCFA\n`, fontSize: 13, bold: true, alignment:'justify'},
-                        {text: `${formatNumber((data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))+(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))*(0.18))} FCFA`, fontSize: 13, bold: true, alignment:'justify'},
+                      {text: `\n${formatNumber(getTTC(data))} FCFA\n`, fontSize: 13, bold: true, alignment:'justify'},
+                        {text: `${formatNumber(getTVA(data))} FCFA\n`, fontSize: 13, bold: true, alignment:'justify'},
+                        {text: `${formatNumber(getHT(data))} FCFA`, fontSize: 13, bold: true, alignment:'justify'},
                       
                       
                     ]

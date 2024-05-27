@@ -74,6 +74,7 @@ function Produits() {
       },
       validate: zodResolver(schema),
     });
+   
     
     const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
 
@@ -270,15 +271,42 @@ const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' '
                     alignment:'center',
                     bold:true,
                     table: {
-                      widths: ['30%', '15%', '15%','20%','20%'],
+                      widths: ['25%', '10%', '15%','20%','15%','15%'],
                       
                       // keepWithHeaderRows: 1,
                       body: [
-                        [{text: 'MATIERE', style: 'tableHeader', alignment: 'center', bold:true}, {text: 'QUANTITE', bold:true, style: 'tableHeader', alignment: 'center'},{text: 'PRIX UNITAIRE', style: 'tableHeader', alignment: 'center', bold:true},{text: 'EMPLACEMENT', style: 'tableHeader', alignment: 'center', bold:true},{text: 'OBSERVATION', style: 'tableHeader', alignment: 'center', bold:true}],
-                       ...P.map(p =>  [{text: p.catalogue, style: 'tableHeader', alignment: 'center', bold:true}, {text: `${p.quantite}`, bold:true, style: 'tableHeader', alignment: 'center'},{text: formatNumber(p.prixUnitaire), style: 'tableHeader', alignment: 'center', bold:true},{text: p.emplacement, style: 'tableHeader', alignment: 'center', bold:true},{text: p.observation, style: 'tableHeader', alignment: 'center', bold:true}])
-                  ]              
-                    }
+                        [{text: 'MATIERE', style: 'tableHeader', alignment: 'center', bold:true}, {text: 'QUANTITE', bold:true, style: 'tableHeader', alignment: 'center'},{text: 'PRIX UNITAIRE', style: 'tableHeader', alignment: 'center', bold:true},{text: 'MONTANT', style: 'tableHeader', alignment: 'center', bold:true},{text: 'EMPLACEMENT', style: 'tableHeader', alignment: 'center', bold:true},{text: 'OBSERVATION', style: 'tableHeader', alignment: 'center', bold:true}],
+                       ...P.map(p =>  [{text: p.catalogue, style: 'tableHeader', alignment: 'center', bold:true}, {text: `${p.quantite}`, bold:true, style: 'tableHeader', alignment: 'center'},{text: formatNumber(p.prixUnitaire), style: 'tableHeader', alignment: 'center', bold:true},{text: formatNumber(`${(p.quantite)*(p.prixUnitaire)}`), bold:true, style: 'tableHeader', alignment: 'center'},{text: p.emplacement, style: 'tableHeader', alignment: 'center', bold:true},{text: p.observation, style: 'tableHeader', alignment: 'center', bold:true}])
+                  ]                               
+                    }                    
                   },
+                  {
+                    columns: [
+                      {   
+                        
+                        stack: [                        
+                            {text: '\nTOTAL ', fontSize: 13, bold: true, alignment:'justify'},
+                          
+                          ]
+                          
+                        
+                      },
+                    
+                      {
+                        text: ''
+                      },
+                      {
+                       
+                        text: [
+                            
+                        
+                          
+                          
+                        ]
+                      }
+                    ]
+                  },
+                  
                   {text:  `\n\n${P?.length} ${c.categorie}(S) SONT DISPONIBLES DANS NOTRE STOCK`,color:'blue', fontSize: 12, bold: true, alignment:'justify'},
                 
                   {svg: '<svg width="400" height="50"><line x1="100" y1="50" x2="500" y2="50" style="stroke:#c026d3; stroke-width:3;" /></svg>'}

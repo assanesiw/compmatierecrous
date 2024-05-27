@@ -85,7 +85,7 @@ function Acceuil() {
  </div>
  <div className="flex items-center justify-center hover:bg-blue-500 px-2 group py-1">
  <FcNeutralTrading className='w-6 h-6 group-hover:text-white'/>
- <Button className='text-black font-bold hover:bg-transparent'  fullWidth onClick={() => navigate('matieres')}>HORS D ETAT</Button>
+ <Button className='text-black font-bold hover:bg-transparent'  fullWidth onClick={() => navigate('matieres')}>HORS SERVICE</Button>
  </div>
 
  <div className="flex items-center justify-center hover:bg-blue-500 px-2 group py-1">

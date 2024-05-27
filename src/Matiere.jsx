@@ -127,7 +127,7 @@ function Matiere(){
  
  </div>
 <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
-<h1 className='font-bold text-3xl text-center mt-6'>LES RECEPTIONS</h1>
+<h1 className='font-bold text-3xl text-center mt-6'>LES HORS SERVICES</h1>
 </div>
 <div className="card">
 <DataTable value={Matiere} tableStyle={{ minWidth: '50rem' }}>

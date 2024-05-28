@@ -302,7 +302,8 @@ gradient={{ from: 'blue', to: 'green', deg: 50 }}
         />
          <div className="flex items-center justify-between px-20 mt-4 ">
             <Button className='w-45 h-12 font-bold ' bg='orange' leftSection={<FcPlus/>} onClick={open}>NOUVELLE RECEPTION</Button>
-            <Button className='w-45 h-12 font-bold ' bg='green' leftSection={<TfiWrite/>} onClick={() => generer()}>INVENTAIRE DES RECEPTION</Button> 
+            <Button className='w-45 h-12 font-bold ' bg='green' leftSection={<TfiWrite/>} onClick={() => generer()}>INVENTAIRE DES RECEPTION</Button>
+ 
         </div> 
         
         <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>

@@ -55,7 +55,10 @@ function Produits() {
     const [opened, { open, close }] = useDisclosure(false);
     const key = 'get_Produits';
     const qc = useQueryClient();
-    const {data: Produits,isLoading} = useQuery(key,() => getProdits());
+    const {data: Produits,isLoading} = useQuery(key,() => getProdits(),{
+      onError:console.log,
+      onSuccess:console.log
+    });
     const keyA = 'get_Catalogue';
     const navigate = useNavigate();
     const {data: Catalogue,isLoading:loadiAC} = useQuery(keyA,() => getCatalogue());
@@ -306,6 +309,7 @@ const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' '
                       }
                     ]
                   },
+
                   
                   {text:  `\n\n${P?.length} ${c.categorie}(S) SONT DISPONIBLES DANS NOTRE STOCK`,color:'blue', fontSize: 12, bold: true, alignment:'justify'},
                 

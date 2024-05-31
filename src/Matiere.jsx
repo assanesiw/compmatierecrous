@@ -6,7 +6,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { z } from 'zod';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { createMatiere, getMatieres } from './services/matiereservice';
+import { createMatiere, deleteMatiere, getMatieres, updateMatiere } from './services/matiereservice';
 import { useForm, zodResolver } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { DateInput } from '@mantine/dates';
@@ -60,6 +60,21 @@ function Matiere(){
         
       }
     })
+   
+    const {mutate: del,isLoading:load} = useMutation((id) => deleteMatiere(id),{
+      onSuccess:() => {
+        notifications.show({
+          title: 'supprimer produits',
+          message: 'le produits supprime avec succee',
+          color: 'green'
+        })
+        qc.invalidateQueries(key);
+      }
+    });
+  
+        const handleFormSubmit  = (row) => {
+         del(row._id);
+        };
     const save = (valeurs) => {
       mutate(valeurs);
      }
@@ -70,7 +85,7 @@ function Matiere(){
               <ActionIcon aria-label="default action icon" size="lg" bg="lime">
               <AiFillEdit/>
             </ActionIcon>
-            <ActionIcon aria-label="default action icon" size="lg" bg="red" >
+            <ActionIcon aria-label="default action icon" size="lg" bg="red" onClick={() => handleFormSubmit (row)}>
               <HiArchiveBoxXMark/>
             </ActionIcon>
               {/* <Button icon="pi pi-pencil"  className='w-8 h-8 font-bold' bg='green' style={{ marginRight: '8px' }} leftSection={<AiFillEdit/>}></Button> */}
@@ -115,7 +130,7 @@ function Matiere(){
     return(
 <>
 <LoadingOverlay
-          visible={isLoading || isLoadingM}
+          visible={isLoading || isLoadingM || load}
           zIndex={1000}
           overlayProps={{ radius: 'sm', blur: 2 }}
           loaderProps={{ color: 'blue', type: 'bars' }}

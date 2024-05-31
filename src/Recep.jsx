@@ -27,7 +27,7 @@ function Recep() {
     }
 
     const getHT = (data) => {
-      return getTTC(data) - getTVA(data);
+      return getTTC(data) + getTVA(data);
     }
 
 const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
@@ -112,7 +112,7 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                      
                       text: [
                         
-                        {text: `\nArrêté le présent PV a .(${data?.produits?.reduce((acc,val) => acc + val.qte ,0)})..unité que avons réceptionnée\n\n`, fontSize: 12, bold: false, alignment:'justify'},
+                        {text: `\nArrêté le présent PV a .(${data?.produits?.reduce((acc,val) => acc + val.qte ,0)})..unité que avons réceptionnées\n\n`, fontSize: 12, bold: false, alignment:'justify'},
                         {text: `Ziguinchor, ${format(data?.date,'dd/MM/yyyy')}`, fontSize: 12, bold: true, alignment:'center'},
                         {text: '\n\nNoms et qualites du fournisseur:', fontSize: 12, bold: false, alignment:'justify'},
                         {text: `\n\n${data?.fournisseur}\n`, fontSize: 14, bold: true, alignment:'justify'},
@@ -132,7 +132,7 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                         {text: '\n	Bordereau de livraison', fontSize: 13, bold: true, alignment:'justify'},
                         {text: '\n	Facture Pro forma\n', fontSize: 13, bold: true, alignment:'justify'},
                         {text: `\nFacture N°: ${data?.numero_bon} du ${format(data?.date,'dd/MM/yyyy')}`,color:'red', fontSize: 12, bold: true, alignment:'justify'},
-                        {text: `\n\nMONTANT: ${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))} FCFA\n\n`, fontSize: 16, bold: true, alignment:'center'} 
+                        {text: `\n\nMONTANT: ${formatNumber(getHT(data))} FCFA\n\n`, fontSize: 16, bold: true, alignment:'center'} 
                         
                       ]
                     }
@@ -179,7 +179,7 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                     {
                       text: [
                         
-                        {text: 'M.Ibrahima DUAVE\n', fontSize: 12, bold:true, alignment:'center'},
+                        {text: 'M.Ibrahima DIAVE\n', fontSize: 12, bold:true, alignment:'center'},
                         {text: '................\n', fontSize: 12, bold: true, alignment:'center'},
                         {text: 'Membre\n', fontSize: 12, bold: true, alignment:'center'},   
                       ]
@@ -188,27 +188,28 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                 },
                 {
                   style: 'tableExample',
-                  margin: [20, 10],
+                  margin: [15, 10],
+                  fillColor:'',
                   table: {
                     widths: ['*'],
                     body: [
-                      [{text: 'PROCES-VERBAL DE RECEPTION', fontSize: 25, bold: true, alignment:'center'}],
+                      [{text: 'PROCES-VERBAL DE RECEPTION', fontSize: 20, bold: true, alignment:'center',color:'black'}],
                     ]
                   }
                 },
                {
                 style: 'tableExample',
                   bold:true,
-                  fillColor:'#d4d4d8',
+                  fillColor:'',
                   table: {
-                    widths: [200, 100, 100, 100,100,100],
+                    widths: [200, 80, 80, 100,100,140],
                     body: [
-                      [{text: 'DESIGNATION DES MATIERES',fontSize: 14, style: 'tableHeader', color: 'blue', alignment: 'center', bold:true},{text: 'UNITE',fontSize: 14, style: 'tableHeader', color: 'blue',alignment: 'center', bold:true}, {text: 'QUANTITE',fontSize: 14, bold:true,color: 'blue', style: 'tableHeader', alignment: 'center'},{text: 'PRIX UNITAIRE',fontSize: 14, style: 'tableHeader', alignment: 'center',color: 'blue', bold:true},{text: 'MONTANT',fontSize: 14,rowSpan: 1, style: 'tableHeader',color: 'blue', alignment: 'center', bold:true},{text: 'OBSERVATION',fontSize: 14, style: 'tableHeader', alignment: 'center',color: 'blue', bold:true}],
+                      [{text: 'DESIGNATION',fontSize: 14, style: 'tableHeader', color: 'blue', alignment: 'center', bold:true},{text: 'UNITE',fontSize: 14, style: 'tableHeader', color: 'blue',alignment: 'center', bold:true}, {text: 'QUANTITE',fontSize: 14, bold:true,color: 'blue', style: 'tableHeader', alignment: 'center'},{text: 'PRIX UNITAIRE',fontSize: 14, style: 'tableHeader', alignment: 'center',color: 'blue', bold:true},{text: 'MONTANT',fontSize: 14,rowSpan: 1, style: 'tableHeader',color: 'blue', alignment: 'center', bold:true},{text: 'OBSERVATION',fontSize: 14, style: 'tableHeader', alignment: 'center',color: 'blue', bold:true}],
                        // eslint-disable-next-line no-unsafe-optional-chaining
                        ...data?.produits.map(m=>{
-                        return [m.produit.catalogue,m.produit.uniteConditionnement,`${m.qte}`,formatNumber(m.produit.prixUnitaire),`${formatNumber(m.produit.prixUnitaire * m.qte)}`,m.produit.observation]
-                       }),
-                       [{text:'TOTAL',fontSize: 16},'',`${data?.produits?.reduce((acc,val) => acc + val.qte ,0)}`,'',`${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))}`,''],
+                        return [{ text: m.produit.catalogue} ,{text: m.produit.uniteConditionnement, alignment:'center'},{text: `${m.qte}`, alignment:'right'},{text: formatNumber(m.produit.prixUnitaire), alignment:'right'},{ text: `${formatNumber(m.produit.prixUnitaire * m.qte)}`, alignment:'right'},m.produit.observation]
+                     }),
+                       [{text:'TOTAL',fontSize: 16},'',{text:`${data?.produits?.reduce((acc,val) => acc + val.qte ,0)}`, alignment:'right'},'',{text:`${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))}`, alignment:'right'},''],
                       
                     ]
                   }
@@ -273,6 +274,246 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
         }
         pdfMake.createPdf(dd).open();
     }
+    const generer1 = () => {
+      
+      var dd = {
+        pageOrientation:'landscape',
+          content: [
+            {
+              columns: [
+                {   
+                  
+                  stack: [                        
+                      {text: 'REPUBLIQUE DU SENEGAL ', fontSize: 13, bold: true, alignment:'center'},
+                      {text: 'Un Peuple - Un But - Une Foi', fontSize: 12, bold: false, alignment:'center'},
+                      {text: '------------', fontSize: 12, bold: false, alignment:'center'},   
+            {
+              image:photo,
+              width:70,
+              height:30,
+              alignment: 'center',
+              
+             
+            },
+            {text: 'MINISTERE DE L ENSEIGNEMENT SUPERIEUR, DE LA RECHERCHE ET DE L INNOVATION', fontSize: 10, bold: false, alignment:'center'},
+            {text: '--------------', fontSize: 12, bold: false, alignment:'center'},
+            {text: 'CENTRE REGIONAL DES OEUVRES UNIVERSITAIRES SOCIALES DE ZIGUINCHOR (CROUS/Z)', fontSize: 10, bold: false, alignment:'center'},
+            {
+              image,
+              width:70,
+              height:50,
+              alignment: 'center'
+              
+          },
+                    ]
+                    
+                  
+                },
+              
+                {
+                  text: ''
+                },
+                {
+                 
+                  text: [
+                      
+                    {text: 'Art, 2b, 7b, 7c, 19b\n', fontSize: 12, bold:true, alignment:'center'},
+                    {text: '\nModèle 3\n', fontSize: 12, bold: true, alignment:'center'},
+                    {text: `\n\n\nDate: ${format(data?.date,'dd/MM/yyyy')}`, fontSize: 12, bold: true, alignment:'center'},
+                    
+                    
+                  ]
+                }
+              ]
+            },
+              {
+                style: 'tableExample',
+                fillColor:'#c026d3',
+                margin: [20, 10],
+                table: {
+                  widths: ['*'],
+                  body: [
+                    [{text: `PROCES-VERBAL DE RECEPTION N°: ${data?.n_bon}`,color:'white', fontSize: 20, bold: true, alignment:'center'}],
+                  ]
+                }
+              },
+              
+              {
+              
+            },
+              
+              {
+                  text: `TYPE: ${data?.type}`,
+                  style: 'subheader'
+              },
+
+              {
+          
+                columns: [
+                  {
+                   
+                    text: [
+                      
+                      {text: `\nArrêté le présent PV a .(${data?.produits?.reduce((acc,val) => acc + val.qte ,0)})..unité que avons réceptionnées\n\n`, fontSize: 12, bold: false, alignment:'justify'},
+                      {text: `Ziguinchor, ${format(data?.date,'dd/MM/yyyy')}`, fontSize: 12, bold: true, alignment:'center'},
+                      {text: '\n\nNoms et qualites du fournisseur:', fontSize: 12, bold: false, alignment:'justify'},
+                      {text: `\n\n${data?.fournisseur}\n`, fontSize: 14, bold: true, alignment:'justify'},
+                      {text: '\n\nNoms, qualites et signatures des membres de la commission:', fontSize: 12, bold: false, alignment:'justify'},
+                     
+                    ]
+
+                  },
+
+                  {
+                   
+                    text: [
+                      
+                      {text: `\nACHAT DE ${data?.produits[0]?.produit.cat.categorie}`,color:'blue', fontSize: 13, bold: true, alignment:'center'},
+                      {text: '\nEnumération des pièces justificatives jointes\n', fontSize: 12, bold: false, alignment:'justify'},
+                      {text: '\n	Facture définitive', fontSize: 13, bold: true, alignment:'justify'},
+                      {text: '\n	Bordereau de livraison', fontSize: 13, bold: true, alignment:'justify'},
+                      {text: '\n	Facture Pro forma\n', fontSize: 13, bold: true, alignment:'justify'},
+                      {text: `\nFacture N°: ${data?.numero_bon} du ${format(data?.date,'dd/MM/yyyy')}`,color:'red', fontSize: 12, bold: true, alignment:'justify'},
+                      {text: `\n\nMONTANT: ${formatNumber(getTTC(data))} FCFA\n\n`, fontSize: 16, bold: true, alignment:'center'} 
+                      
+                    ]
+                  }
+                ]
+              },
+              
+             
+             {/*  {
+                  style: 'tableExample',
+                  table: {
+                      body: [
+                          ['PRENOM', 'NOM', 'FONCTION','SIGNATURE'],
+                           // eslint-disable-next-line no-unsafe-optional-chaining
+                           ...data?.commission.membres.map(m =>{ 
+                              return  [m.prenom, m.nom, m.fonction,''];
+                          })
+                      ]
+                  }
+              }, */},
+          
+              {
+                columns: [
+                  {
+                    
+                    text: [
+                      
+                      {text: 'M.Ansoumana DIEDHIOU\n', fontSize: 12, bold:true, alignment:'center'},
+                      {text: '................\n', fontSize: 12, bold: true, alignment:'center'},
+                      {text: 'Membre', fontSize: 12, bold: true, alignment:'center'},
+                      
+                      
+                    ]
+                  },
+                  {
+                    text: [
+                      
+                      {text: 'M.Mamadou KONTE\n', fontSize: 12, bold:true, alignment:'center'},
+                      {text: '................\n', fontSize: 12, bold: true, alignment:'center'},
+                      {text: 'President\n', fontSize: 12, bold: true, alignment:'center'},
+                      
+                      
+                    ]
+                  },
+                  {
+                    text: [
+                      
+                      {text: 'M.Ibrahima DIAVE\n', fontSize: 12, bold:true, alignment:'center'},
+                      {text: '................\n', fontSize: 12, bold: true, alignment:'center'},
+                      {text: 'Membre\n', fontSize: 12, bold: true, alignment:'center'},   
+                    ]
+                  }
+                ]
+              },
+              {
+                style: 'tableExample',
+                margin: [15, 10],
+                fillColor:'',
+                table: {
+                  widths: ['*'],
+                  body: [
+                    [{text: 'PROCES-VERBAL DE RECEPTION', fontSize: 20, bold: true, alignment:'center',color:'black'}],
+                  ]
+                }
+              },
+             {
+              style: 'tableExample',
+                bold:true,
+                fillColor:'',
+                table: {
+                  widths: [200, 80, 80, 100,100,140],
+                  body: [
+                    [{text: 'DESIGNATION',fontSize: 14, style: 'tableHeader', color: 'blue', alignment: 'center', bold:true},{text: 'UNITE',fontSize: 14, style: 'tableHeader', color: 'blue',alignment: 'center', bold:true}, {text: 'QUANTITE',fontSize: 14, bold:true,color: 'blue', style: 'tableHeader', alignment: 'center'},{text: 'PRIX UNITAIRE',fontSize: 14, style: 'tableHeader', alignment: 'center',color: 'blue', bold:true},{text: 'MONTANT',fontSize: 14,rowSpan: 1, style: 'tableHeader',color: 'blue', alignment: 'center', bold:true},{text: 'OBSERVATION',fontSize: 14, style: 'tableHeader', alignment: 'center',color: 'blue', bold:true}],
+                     // eslint-disable-next-line no-unsafe-optional-chaining
+                     ...data?.produits.map(m=>{
+                      return [{ text: m.produit.catalogue} ,{text: m.produit.uniteConditionnement, alignment:'center'},{text: `${m.qte}`, alignment:'right'},{text: formatNumber(m.produit.prixUnitaire), alignment:'right'},{ text: `${formatNumber(m.produit.prixUnitaire * m.qte)}`, alignment:'right'},m.produit.observation]
+                   }),
+                     [{text:'TOTAL',fontSize: 16},'',{text:`${data?.produits?.reduce((acc,val) => acc + val.qte ,0)}`, alignment:'right'},'',{text:`${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))}`, alignment:'right'},''],
+                    
+                  ]
+                }
+             },
+          
+            
+             {
+              columns: [
+                {   
+                  
+                  stack: [                        
+                      {text: '\nTOTAL  ', fontSize: 13, bold: true, alignment:'justify'},
+                     
+                    ]
+                    
+                  
+                },
+              
+                {
+                  text: ''
+                },
+                {
+                 
+                  text: [
+                      
+                    {text: `\n${formatNumber(getTTC(data))} FCFA\n`, fontSize: 13, bold: true, alignment:'justify'},
+                     
+                    
+                    
+                  ]
+                }
+              ]
+            },
+                           
+          ],
+          styles: {
+              header: {
+                  fontSize: 18,
+                  bold: true
+              },
+              subheader: {
+                  fontSize: 12,
+                  bold: false,
+                  
+                 
+              },
+              
+              quote: {
+                  italics: true
+              },
+              img: {
+                  fontSize: 8
+              },
+              defaultStyle: {
+                columnGap: 20
+              }
+             
+          }  
+          
+      }
+      pdfMake.createPdf(dd).open();
+  }
 
     const rows = data?.produits.map((element) => (
         <Table.Tr key={element.produit._id}>
@@ -295,8 +536,9 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
 
   return (
     <div className="mx-10">
-    <div className="text-center  mt-4">
-    <Button className='w-45 h-12 font-bold' bg='yellow' onClick={() => generer()} >GENERER PV RECEPTION</Button>  
+    <div className="flex items-center justify-between px-20 mt-4 ">
+    <Button className='w-45 h-12 font-bold' bg='blue' onClick={() => generer()} >PV RECEPTION AVEC TTC</Button>
+     <Button className='w-45 h-12 font-bold' bg='yellow' onClick={() => generer1()} >PV RECEPTION SANS TTC</Button>    
     </div>
     <div className="my-5 text-3xl font-semibold text-center  mt-4 ">
        DATE : {data?.date}

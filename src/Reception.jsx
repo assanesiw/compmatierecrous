@@ -171,15 +171,16 @@ gradient={{ from: 'blue', to: 'green', deg: 50 }}
            const actionTemplate = (row) => {
             return (
                 <div className="flex space-x-2">
+                   <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
+                  <AiOutlineEye/>
+                  </ActionIcon>
                     <ActionIcon aria-label="default action icon" size="lg" bg="lime" onClick={() => handleUpdate(row)}>
                     <AiFillEdit/>
                   </ActionIcon>
                   <ActionIcon aria-label="default action icon" size="lg" bg="red" onClick={() => handleDelete(row)}>
                     <HiArchiveBoxXMark/>
                   </ActionIcon>
-                  <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
-                  <AiOutlineEye/>
-                  </ActionIcon>              
+                               
                 </div>
             );          
         };
@@ -247,10 +248,10 @@ gradient={{ from: 'blue', to: 'green', deg: 50 }}
                       table: {
                         widths: ['40%', '15%', '15%','30%'],                    
                         body: [
-                          [{ text:'MATIERES',style: 'tablevbHeader'}, 'QUANTITE', 'PRIX UNITAIRE','FOURNISSEUR'],
+                          [{ text:'MATIERES',style: 'tablevbHeader'}, 'NUMERO FACTURE', 'TYPE','FOURNISSEUR'],
                            // eslint-disable-next-line no-unsafe-optional-chaining
                            ...Reception.map(m =>{ 
-                              return  [`${m.qte}`, `${m.catalogue}`, m.type,m.fournisseur];
+                              return  [`${m.produits.produit}`, `${m.numero_bon}`, m.type,m.fournisseur];
                           })
                       ]              
                       }
@@ -313,7 +314,7 @@ gradient={{ from: 'blue', to: 'green', deg: 50 }}
         </div>
         <div className="card mt-4">
         <div style={{ backgroundColor: 'var(--highlight-bg)', color: 'var(--highlight-text-color)', borderRadius: 'var(--border-radius)', padding: '0.5rem' }}>
-            <DataTable  filters={filters} value={Reception} tableStyle={{ minWidth: '50rem' }} loading={isLoading} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} size="small" 
+            <DataTable  filters={filters} value={Reception} tableStyle={{ minWidth: '50rem' }} loading={isLoading} paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} size="small" 
             globalFilterFields={['type','numero_bon', 'type', 'fournisseur']} header={header} stripedRows>
                 <Column field="date" header="DATE" body={datetemplate} ></Column>
                 <Column field="numero_bon" header="NUMERO DE BON" body={aTemplate}></Column>

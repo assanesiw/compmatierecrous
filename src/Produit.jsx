@@ -79,10 +79,13 @@ function Produit() {
         UNITE: {data?.uniteConditionnement}
     </div>
     <div className="text-2xl font-semibold text-center">
-        PRIX UNITAIRE: {data?.prixUnitaire} Fra CFA
+        PRIX UNITAIRE: {data?.prixUnitaire} FCFA
     </div>
     <div className="text-2xl font-semibold text-center">
         EMPLACEMENT: {data?.emplacement}
+    </div>
+    <div className="text-2xl font-semibold text-center">
+        OBSERVATION: {data?.observation}
     </div>
     <div className="text-2xl font-semibold text-center">
        <QRCode value={data?.code}/>

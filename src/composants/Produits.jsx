@@ -31,6 +31,7 @@ pdfMake.vfs = font;
 
 
 
+
 const schema = z.object({
   date: z
   .date(),
@@ -185,15 +186,16 @@ function Produits() {
     const actionTemplate = (row) => {
       return (
           <div className="flex space-x-2">
+             <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
+                  <AiOutlineEye/>
+                  </ActionIcon>
               <ActionIcon aria-label="default action icon" size="lg" bg="lime" onClick={() => handleUpdate(row)}>
               <AiFillEdit/>
             </ActionIcon>
             <ActionIcon aria-label="default action icon" size="lg" bg="red" onClick={() => handleFormSubmit (row)}>
               <HiArchiveBoxXMark/>
             </ActionIcon>
-            <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
-                  <AiOutlineEye/>
-                  </ActionIcon>
+           
               
               
           </div>
@@ -247,7 +249,6 @@ const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' '
                       
                     
                   },
-                
                
                 ]
               },
@@ -385,7 +386,7 @@ const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' '
  <Modal opened={noTransitionOpened} size='lg' onClose={cl} title="">
       <form className={classes.form}  onSubmit={form.onSubmit((values) => save(values))}>
         <Text fz="lg" fw={700} className="{classes.title} text-center text-green-800">
-            AJOUTEZ UN NOUVEAU PRODUIT
+            AJOUTEZ UNE NOUVELLE MATIERE
           </Text>
           <div className={classes.control}>
           <SimpleGrid  mt="md" cols={{ base: 1, sm: 2 }}>

@@ -169,15 +169,16 @@ const renderHeader = () => {
     }}
   /></> : <>
            <div className="flex space-x-2">
+           <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
+                  <AiOutlineEye/>
+                  </ActionIcon>
                 <ActionIcon aria-label="default action icon" size="lg" bg="lime" onClick={() => handleUpdate(row)}>
                 <AiFillEdit/>
               </ActionIcon>
               <ActionIcon aria-label="default action icon" size="lg" bg="red" onClick={() => handleFormSubmit (row)}>
                 <HiArchiveBoxXMark/>
               </ActionIcon>
-              <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
-                  <AiOutlineEye/>
-                  </ActionIcon>
+             
             </div>
           </>}
         </>;

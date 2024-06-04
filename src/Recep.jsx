@@ -47,13 +47,13 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                         {text: '------------', fontSize: 12, bold: false, alignment:'center'},   
               {
                 image:photo,
-                width:70,
+                width:60,
                 height:30,
                 alignment: 'center',
                 
                
               },
-              {text: 'MINISTERE DE L ENSEIGNEMENT SUPERIEUR, DE LA RECHERCHE ET DE L INNOVATION', fontSize: 10, bold: false, alignment:'center'},
+              {text: '\nMINISTERE DE L ENSEIGNEMENT SUPERIEUR, DE LA RECHERCHE ET DE L INNOVATION', fontSize: 10, bold: false, alignment:'center'},
               {text: '--------------', fontSize: 12, bold: false, alignment:'center'},
               {text: 'CENTRE REGIONAL DES OEUVRES UNIVERSITAIRES SOCIALES DE ZIGUINCHOR (CROUS/Z)', fontSize: 10, bold: false, alignment:'center'},
               {
@@ -189,32 +189,31 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                 {
                   style: 'tableExample',
                   margin: [15, 10],
-                  fillColor:'',
+                  fillColor:'#c026d3',
                   table: {
                     widths: ['*'],
                     body: [
-                      [{text: 'PROCES-VERBAL DE RECEPTION', fontSize: 20, bold: true, alignment:'center',color:'black'}],
+                      [{text: 'PROCES-VERBAL DE RECEPTION', fontSize: 20, bold: true, alignment:'center',color:'white'}],
                     ]
                   }
                 },
                {
                 style: 'tableExample',
                   bold:true,
-                  fillColor:'',
+                
                   table: {
-                    widths: [200, 80, 80, 100,100,140],
+                    widths: [220, 110, 110, 130,140],
                     body: [
-                      [{text: 'DESIGNATION',fontSize: 14, style: 'tableHeader', color: 'blue', alignment: 'center', bold:true},{text: 'UNITE',fontSize: 14, style: 'tableHeader', color: 'blue',alignment: 'center', bold:true}, {text: 'QUANTITE',fontSize: 14, bold:true,color: 'blue', style: 'tableHeader', alignment: 'center'},{text: 'PRIX UNITAIRE',fontSize: 14, style: 'tableHeader', alignment: 'center',color: 'blue', bold:true},{text: 'MONTANT',fontSize: 14,rowSpan: 1, style: 'tableHeader',color: 'blue', alignment: 'center', bold:true},{text: 'OBSERVATION',fontSize: 14, style: 'tableHeader', alignment: 'center',color: 'blue', bold:true}],
+                      [{text: 'DESIGNATION',fontSize: 14, style: 'tableHeader', color: 'black', alignment: 'center', bold:true},{text: 'NATURE-UNITE',fontSize: 14, style: 'tableHeader', color: 'black',alignment: 'center', bold:true}, {text: 'QUANTITE',fontSize: 14, bold:true,color: 'black', style: 'tableHeader', alignment: 'center'},{text: 'PRIX UNITAIRE',fontSize: 14, style: 'tableHeader', alignment: 'center',color: 'black', bold:true},{text: 'MONTANT',fontSize: 14,rowSpan: 1, style: 'tableHeader',color: 'black', alignment: 'center', bold:true}],
                        // eslint-disable-next-line no-unsafe-optional-chaining
                        ...data?.produits.map(m=>{
-                        return [{ text: m.produit.catalogue} ,{text: m.produit.uniteConditionnement, alignment:'center'},{text: `${m.qte}`, alignment:'right'},{text: formatNumber(m.produit.prixUnitaire), alignment:'right'},{ text: `${formatNumber(m.produit.prixUnitaire * m.qte)}`, alignment:'right'},m.produit.observation]
+                        return [{ text: m.produit.catalogue} ,{text: m.produit.uniteConditionnement, alignment:'center'},{text: `${m.qte}`, alignment:'right'},{text: formatNumber(m.produit.prixUnitaire), alignment:'right'},{ text: `${formatNumber(m.produit.prixUnitaire * m.qte)}`, alignment:'right'}]
                      }),
-                       [{text:'TOTAL',fontSize: 16},'',{text:`${data?.produits?.reduce((acc,val) => acc + val.qte ,0)}`, alignment:'right'},'',{text:`${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))}`, alignment:'right'},''],
+                       [{text:'TOTAL',fontSize: 16},'',{text:`${data?.produits?.reduce((acc,val) => acc + val.qte ,0)}`, alignment:'right'},'',{text:`${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))}`, alignment:'right'}],
                       
                     ]
                   }
                },
-            
               
                {
                 columns: [
@@ -430,28 +429,27 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
               },
               {
                 style: 'tableExample',
+                fillColor:'#c026d3',
                 margin: [15, 10],
-                fillColor:'',
                 table: {
                   widths: ['*'],
                   body: [
-                    [{text: 'PROCES-VERBAL DE RECEPTION', fontSize: 20, bold: true, alignment:'center',color:'black'}],
+                    [{text: 'PROCES-VERBAL DE RECEPTION', fontSize: 20, bold: true, alignment:'center',color:'white'}],
                   ]
                 }
               },
              {
               style: 'tableExample',
                 bold:true,
-                fillColor:'',
                 table: {
-                  widths: [200, 80, 80, 100,100,140],
+                  widths: [220, 110, 110, 130,140],
                   body: [
-                    [{text: 'DESIGNATION',fontSize: 14, style: 'tableHeader', color: 'blue', alignment: 'center', bold:true},{text: 'UNITE',fontSize: 14, style: 'tableHeader', color: 'blue',alignment: 'center', bold:true}, {text: 'QUANTITE',fontSize: 14, bold:true,color: 'blue', style: 'tableHeader', alignment: 'center'},{text: 'PRIX UNITAIRE',fontSize: 14, style: 'tableHeader', alignment: 'center',color: 'blue', bold:true},{text: 'MONTANT',fontSize: 14,rowSpan: 1, style: 'tableHeader',color: 'blue', alignment: 'center', bold:true},{text: 'OBSERVATION',fontSize: 14, style: 'tableHeader', alignment: 'center',color: 'blue', bold:true}],
+                    [{text: 'DESIGNATION',fontSize: 14, style: 'tableHeader', color: 'black', alignment: 'center', bold:true},{text: 'NATURE-UNITE',fontSize: 14, style: 'tableHeader', color: 'black',alignment: 'center', bold:true}, {text: 'QUANTITE',fontSize: 14, bold:true,color: 'black', style: 'tableHeader', alignment: 'center'},{text: 'PRIX UNITAIRE',fontSize: 14, style: 'tableHeader', alignment: 'center',color: 'black', bold:true},{text: 'MONTANT',fontSize: 14,rowSpan: 1, style: 'tableHeader',color: 'black', alignment: 'center', bold:true}],
                      // eslint-disable-next-line no-unsafe-optional-chaining
                      ...data?.produits.map(m=>{
-                      return [{ text: m.produit.catalogue} ,{text: m.produit.uniteConditionnement, alignment:'center'},{text: `${m.qte}`, alignment:'right'},{text: formatNumber(m.produit.prixUnitaire), alignment:'right'},{ text: `${formatNumber(m.produit.prixUnitaire * m.qte)}`, alignment:'right'},m.produit.observation]
+                      return [{ text: m.produit.catalogue} ,{text: m.produit.uniteConditionnement, alignment:'center'},{text: `${m.qte}`, alignment:'right'},{text: formatNumber(m.produit.prixUnitaire), alignment:'right'},{ text: `${formatNumber(m.produit.prixUnitaire * m.qte)}`, alignment:'right'}]
                    }),
-                     [{text:'TOTAL',fontSize: 16},'',{text:`${data?.produits?.reduce((acc,val) => acc + val.qte ,0)}`, alignment:'right'},'',{text:`${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))}`, alignment:'right'},''],
+                     [{text:'TOTAL',fontSize: 16},'',{text:`${data?.produits?.reduce((acc,val) => acc + val.qte ,0)}`, alignment:'right'},'',{text:`${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))}`, alignment:'right'}],
                     
                   ]
                 }

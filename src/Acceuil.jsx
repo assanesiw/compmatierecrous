@@ -1,6 +1,6 @@
 import { Button, ScrollArea } from '@mantine/core';
 import classes from './Navbarnested.module.css';
-import { FcPackage, FcPortraitMode, FcStatistics,  FcInfo, FcImport, FcShop,  FcRefresh, FcNeutralTrading,} from "react-icons/fc";
+import { FcPackage, FcPortraitMode, FcStatistics, FcImport, FcShop,  FcRefresh, FcNeutralTrading, FcInspection,} from "react-icons/fc";
 import {  Route, Routes, useNavigate, } from 'react-router-dom';
 import { RiMenu3Fill } from "react-icons/ri";
 import Produits from './composants/Produits';
@@ -89,7 +89,7 @@ function Acceuil() {
  </div>
 
  <div className="flex items-center justify-center hover:bg-blue-500 px-2 group py-1">
- <FcInfo className='w-6 h-6 group-hover:text-white'/>
+ <FcInspection className='w-6 h-6 group-hover:text-white'/>
  <Button className='text-black font-bold hover:bg-transparent'  fullWidth onClick={() => navigate('Inventaire')}>INVENTAIRE</Button>
  </div>
   </div>

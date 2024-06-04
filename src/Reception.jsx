@@ -186,7 +186,7 @@ gradient={{ from: 'blue', to: 'green', deg: 50 }}
         };
       const produits = form.values.produits.map((item, index,arr) => (
         <div key={item.key} className='flex space-x-1 my-1 items-center justify-center'>
-           <Select 
+           <Select searchable
           label="MATIERE" placeholder="matiere" className='w-2/3'   withAsterisk
           data={Produits?.map(e => ({label:e.catalogue, value:e._id}))}
           required  {...form.getInputProps(`produits.${index}.produit`)}/>
@@ -317,7 +317,7 @@ gradient={{ from: 'blue', to: 'green', deg: 50 }}
             <DataTable  filters={filters} value={Reception} tableStyle={{ minWidth: '50rem' }} loading={isLoading} paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} size="small" 
             globalFilterFields={['type','numero_bon', 'type', 'fournisseur']} header={header} stripedRows>
                 <Column field="date" header="DATE" body={datetemplate} ></Column>
-                <Column field="numero_bon" header="NUMERO DE BON" body={aTemplate}></Column>
+                <Column field="numero_bon" header="N° FACTURE" body={aTemplate}></Column>
                 <Column field="type" header="TYPE" ></Column>
                 {/* <Column field="produits" header="PRODUIT" ></Column> */}
                 <Column field="commission.nom_commission" header="COMMISSION"></Column>
@@ -335,7 +335,7 @@ gradient={{ from: 'blue', to: 'green', deg: 50 }}
           <div className={classes.control}>
           <SimpleGrid  mt="md" cols={{ base: 1, sm: 2 }}>
           <DateInput label="DATE" placeholder="date" locale='fr' required {...form.getInputProps('date')}/>
-          <TextInput label="NUMERO BON" placeholder="numero bon" required {...form.getInputProps('numero_bon')}/>
+          <TextInput label="N° FACTURE" placeholder="numero bon" required {...form.getInputProps('numero_bon')}/>
           <Select  
           label="TYPE" 
           comboboxProps={{ withinPortal: true }}

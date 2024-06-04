@@ -185,7 +185,7 @@ const renderHeader = () => {
     };
     const produits = form.values.produits.map((item, index,arr) =>(
       <div key={item.key} className='flex space-x-1 my-1 items-center justify-center'>
-         <Select 
+         <Select searchable 
           label="MATIERE" placeholder="matiere" className='w-2/3'   withAsterisk
           data={Produits?.map(e => ({label:e.catalogue, value:e._id}))}
           required  {...form.getInputProps(`produits.${index}.produit`)}/>
@@ -219,7 +219,7 @@ const renderHeader = () => {
         <DataTable filters={filters} value={Attribution} tableStyle={{ minWidth: '6rem' }} loading={isLoading} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} 
         globalFilterFields={['date','remis', 'bon', 'sortis']} header={header} size="small" stripedRows>
           <Column field="date" header="DATE" body={datetemplate}></Column> 
-          <Column field="remis" header="REMIS"></Column>
+          <Column field="remis" header="BENEFICIAIRE"></Column>
           <Column field="section" header="SECTION"></Column>
           <Column field="bon" header="B_A"></Column>
           <Column field="sortis" header="TYPE"></Column>
@@ -236,7 +236,7 @@ const renderHeader = () => {
           <SimpleGrid  mt="md" cols={{ base: 1, sm: 2 }}>
           <DateInput label="DATE" placeholder="date" locale="fr" required {...form.getInputProps('date')} />
       
-          <TextInput label="REMIS" placeholder="remis" required {...form.getInputProps('remis')}  />
+          <TextInput label="BENEFICIAIRE" placeholder="remis" required {...form.getInputProps('remis')}  />
           <TextInput label="SECTION" placeholder="section" required {...form.getInputProps('section')}/>
           <Select  
           label="TYPE" 

@@ -40,15 +40,14 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
               {
                 columns: [
                   {   
-                    
-                    stack: [                        
-                        {text: 'REPUBLIQUE DU SENEGAL ', fontSize: 13, bold: true, alignment:'center'},
-                        {text: 'Un Peuple - Un But - Une Foi', fontSize: 12, bold: false, alignment:'center'},
+             stack: [                        
+                        {text: 'REPUBLIQUE DU SENEGAL ', fontSize: 12, bold: true, alignment:'center'},
+                        {text: 'Un Peuple - Un But - Une Foi', fontSize: 11, bold: false, alignment:'center'},
                         {text: '------------', fontSize: 12, bold: false, alignment:'center'},   
               {
                 image:photo,
-                width:60,
-                height:30,
+                width:30,
+                height:20,
                 alignment: 'center',
                 
                
@@ -236,8 +235,8 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                     text: [
                         
                       {text: `\n${formatNumber(getTTC(data))} FCFA\n`, fontSize: 13, bold: true, alignment:'justify'},
-                        {text: `${formatNumber(getTVA(data))} FCFA\n`, fontSize: 13, bold: true, alignment:'justify'},
-                        {text: `${formatNumber(getHT(data))} FCFA`, fontSize: 13, bold: true, alignment:'justify'},
+                      {text: `${formatNumber(getTVA(data))} FCFA\n`, fontSize: 13, bold: true, alignment:'justify'},
+                      {text: `${formatNumber(getHT(data))} FCFA`, fontSize: 13, bold: true, alignment:'justify'},
                       
                       
                     ]

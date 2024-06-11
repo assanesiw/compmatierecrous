@@ -161,13 +161,17 @@ const renderHeader = () => {
     
     const actionTemplate = (row) => {
         return  <>
-         {role === 'csa' ? <> <Segmented 
+         {role === 'csa' ? <div className="flex space-x-2"> 
+          <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
+                  <AiOutlineEye/>
+                  </ActionIcon>
+         <Segmented 
          value={row.est_valide}
     options={[{label:'Accepte', value: true,className:row.est_valide && 'bg-green-500'},{label:'Rejete',value: false}]}
     onChange={(value) => {
      updA({_id:row._id,val: {est_valide:value}});
     }}
-  /></> : <>
+  /></div> : <>
            <div className="flex space-x-2">
            <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
                   <AiOutlineEye/>
@@ -220,7 +224,7 @@ const renderHeader = () => {
         globalFilterFields={['date','remis', 'bon', 'sortis']} header={header} size="small" stripedRows>
           <Column field="date" header="DATE" body={datetemplate}></Column> 
           <Column field="remis" header="BENEFICIAIRE"></Column>
-          <Column field="section" header="SECTION"></Column>
+          <Column field="section" header="DIVISION OU SERVICE"></Column>
           <Column field="bon" header="B_A"></Column>
           <Column field="sortis" header="TYPE"></Column>
           <Column header="ACTION"  body={actionTemplate} style={{ minWidth: '4rem' }}></Column>
@@ -236,8 +240,7 @@ const renderHeader = () => {
           <SimpleGrid  mt="md" cols={{ base: 1, sm: 2 }}>
           <DateInput label="DATE" placeholder="date" locale="fr" required {...form.getInputProps('date')} />
       
-          <TextInput label="BENEFICIAIRE" placeholder="remis" required {...form.getInputProps('remis')}  />
-          <TextInput label="SECTION" placeholder="section" required {...form.getInputProps('section')}/>
+          <TextInput label="DIVISION OU SERVICE" placeholder="section" required {...form.getInputProps('section')}/>
           <Select  
           label="TYPE" 
           comboboxProps={{ withinPortal: true }}

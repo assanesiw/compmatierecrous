@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { ActionIcon, Autocomplete, Button, Divider, Drawer, FileInput, Group, List, LoadingOverlay, Modal, NumberInput, Select, SimpleGrid, Text, TextInput} from "@mantine/core"
+import { ActionIcon, Button, Divider, Drawer, Group, LoadingOverlay, Modal, NumberInput, Select, SimpleGrid, Text, TextInput} from "@mantine/core"
 import { randomId, useDisclosure } from "@mantine/hooks";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
@@ -30,7 +30,7 @@ import { Segmented } from "antd";
 
 const schema = z.object ({
   date: z.date(),
-  produits:z.array(z.object({produit:z.string(),qte:z.number()}))
+  produits:z.array(z.object({produit:z.string(),qte:z.number(),key:z.string()}))
   .min({3: 'entrez minumum 3 lettres' }),
     remis: z.string()
     .min(3, { message: 'entrez minumum 3 lettres' }),
@@ -64,7 +64,6 @@ function Attribution() {
         bon: '',
         sortis: '',
         ordre: '',
-        termsOfService: false,
       },
       validate: zodResolver(schema),
     });
@@ -77,7 +76,6 @@ function Attribution() {
         bon: '',
         sortis: '',
         ordre: '',
-        termsOfService: false,
       },
       validate: zodResolver(schema),
     });
@@ -90,7 +88,9 @@ function Attribution() {
           })
           qc.invalidateQueries(key);
           cl();
-        }
+        },
+        onError:console.log
+
       });
       const {mutate: delA,isLoading:loadA} = useMutation((id) => deleteAttribution(id),{
         onSuccess:() => {
@@ -114,7 +114,8 @@ function Attribution() {
         }
       })
       const save = (valeurs) => {
-        valeurs.produits = valeurs.produits.map(p => ({produit:p.produit,qte:p.qte}))
+       
+       valeurs.produits = valeurs.produits.map(p => ({produit:p.produit,qte:p.qte}))
         mutate(valeurs);
        }
     const updateA = (val) => {
@@ -232,14 +233,14 @@ const renderHeader = () => {
     </div>
      
      <Modal title="" opened={noTransitionOpened} onClose={cl} >
-        <form className={classes.form} action="" onSubmit={form.onSubmit((values) => save(values))}>
+        <form className={classes.form} onSubmit={form.onSubmit(save)}>
         <Text fz="lg" fw={700} className="{classes.title} text-center text-green-800">
             NOUVELLE ATTRIBUTION
           </Text>
           <div className={classes.control}>
           <SimpleGrid  mt="md" cols={{ base: 1, sm: 2 }}>
           <DateInput label="DATE" placeholder="date" locale="fr" required {...form.getInputProps('date')} />
-      
+          <TextInput label="BENEFICAIRE" placeholder="remis" required {...form.getInputProps('remis')}/>
           <TextInput label="DIVISION OU SERVICE" placeholder="section" required {...form.getInputProps('section')}/>
           <Select  
           label="TYPE" 

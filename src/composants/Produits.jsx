@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { ActionIcon, Autocomplete, Badge, Button, Divider, Drawer, Group, LoadingOverlay, Modal, NumberFormatter, NumberInput, Select, SimpleGrid, Text, TextInput, Textarea } from "@mantine/core";
+import { ActionIcon, Autocomplete, Badge, Button, Divider, Group, LoadingOverlay, Modal, NumberFormatter, NumberInput, Select, SimpleGrid, Text, TextInput, Textarea } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IoMdAdd } from "react-icons/io";
 import { HiArchiveBoxXMark } from "react-icons/hi2";
@@ -23,9 +23,11 @@ import { getCatalogue } from "../services/catalogueservice";
 import { FilterMatchMode } from "primereact/api";
 import { useState } from "react";
 import { useNavigate} from 'react-router-dom';
-import { Avatar } from "antd";
+import { Avatar, Segmented } from "antd";
 import pdfMake from "pdfmake/build/pdfmake";
 import { font } from "../vfs_fonts";
+import { useStore } from "../store";
+
 pdfMake.vfs = font;
 
 
@@ -63,14 +65,15 @@ function Produits() {
     const keyA = 'get_Catalogue';
     const navigate = useNavigate();
     const {data: Catalogue,isLoading:loadiAC} = useQuery(keyA,() => getCatalogue());
+    const role = useStore((state) => state.role);
     const footer = `NOUS AVONS REPERTORIE ${Produits ? Produits.length : 0} TYPES DE MATIERES.`;
     const form = useForm({
       initialValues: {
-        date: '',
-        catalogue: '',
-        cat: '',
-        quantite: 0,
-        uniteConditionnement: '',
+        date:'',
+        catalogue:'',
+        cat:'',
+        quantite:0,
+        uniteConditionnement:'',
         emplacement: '',
         prixUnitaire: 0,
         observation: '',
@@ -182,11 +185,17 @@ function Produits() {
         </div>
     );
 };
-    
-    const actionTemplate = (row) => {
-      return (
-          <div className="flex space-x-2">
-             <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
+const actionTemplate = (row) => {
+  return  <>
+   {role === 'csa'|| role === 'dg'  ? <div className="flex space-x-2"> 
+    <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
+            <AiOutlineEye/>
+            </ActionIcon>
+   <Segmented 
+   
+/></div> : <>
+     <div className="flex space-x-2">
+     <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
                   <AiOutlineEye/>
                   </ActionIcon>
               <ActionIcon aria-label="default action icon" size="lg" bg="lime" onClick={() => handleUpdate(row)}>
@@ -195,13 +204,13 @@ function Produits() {
             <ActionIcon aria-label="default action icon" size="lg" bg="red" onClick={() => handleFormSubmit (row)}>
               <HiArchiveBoxXMark/>
             </ActionIcon>
-           
-              
-              
-          </div>
-      );
-      
-  };
+       
+      </div>
+    </>}
+  </>;
+};
+    
+   
  
 
 const qttTemplte = ({quantite}) => {
@@ -346,6 +355,7 @@ const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' '
         }
         pdfMake.createPdf(dd).open();
     }
+    
 
   return (
     <>
@@ -397,7 +407,7 @@ const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' '
           label="LIBELLE" 
           comboboxProps={{ withinPortal: true }}
           data={Produits?.map(e => ({label:e.catalogue, value:e._id}))} 
-          required {...form.getInputProps('catalogue')} />
+          required {...form.getInputProps('catalogue')}/>
         <Select 
           placeholder="categorie"
           label="CATEGORIE" 
@@ -432,32 +442,38 @@ const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' '
           </div>
         </form>
       </Modal>
-
-      <Drawer offset={8} radius="md" opened={opened} position="right" onClose={close} title="Mise a jour matieres">
+      <Modal opened={opened} position="right" onClose={close} title="">
       <form className={classes.form}  onSubmit={formU.onSubmit((values) => updateM(values))}>
         <Text fz="lg" fw={700} className="{classes.title} text-center text-green-800">
             MODIFIER LA MATIERE
           </Text>
           <div className={classes.control}>
           <SimpleGrid  mt="md" cols={{ base: 1, sm: 2 }}>
-          <DateInput label="DATE" placeholder="date" required locale="fr" {...formU.getInputProps('date')} />
+          <DateInput label="DATE" placeholder="date"  locale="fr" required {...formU.getInputProps('date')} />
+        
           <Autocomplete 
-          placeholder="matiere"
+          placeholder="libelle"
           label="LIBELLE" 
           comboboxProps={{ withinPortal: true }}
-          data={Catalogue?.map(e => ({label:e.matiere, value:e._id}))} 
-          required {...formU.getInputProps('catalogue')} />
+          data={Produits?.map(e => ({label:e.catalogue, value:e._id}))} 
+          required {...formU.getInputProps('catalogue')}/>
+        <Select 
+          placeholder="categorie"
+          label="CATEGORIE" 
+          searchable
+          data={Catalogue?.map(e => ({label:e.categorie, value:e._id}))} 
+          required {...formU.getInputProps('cat')} />
           
-          <TextInput mt="md" label="UNITE CONDITIONNEMENT" placeholder="unite de conditionnement" required {...formU.getInputProps('uniteConditionnement')}/>
+          <TextInput label="UNITE CONDITIONNEMENT" placeholder="unite de conditionnement" required {...formU.getInputProps('uniteConditionnement')}/>
           </SimpleGrid>
-         
           <SimpleGrid mt="md" cols={{ base: 1, sm: 2 }}>
-          <NumberInput label="PRIX UNITAIRE" placeholder="prix unitaire" required {...formU.getInputProps('prixUnitaire')}/>
           <Select  
           label="EMPLACEMENT" 
           comboboxProps={{ withinPortal: true }}
           data={['magasin 1', 'magasin 2', 'magasin 3', 'magasin 4', 'magasin 5', 'magasin 6','magasin 7']}
           required {...formU.getInputProps('emplacement')}/>
+          <NumberInput label="PRIX UNITAIRE" placeholder="prix unitaire" required {...formU.getInputProps('prixUnitaire')}/>
+         
           </SimpleGrid>
           <Textarea
               mt="md"
@@ -468,13 +484,15 @@ const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' '
             />
           <Group justify="flex-end" mt="md">
           <Button type="submit" bg='cyan' className={classes.control}>
-                MODIFIER
+                ENREGISTRER
               </Button>
           </Group>
           <Divider label="@CROUS/Z" labelPosition="center" my="lg" />
           </div>
         </form>
-      </Drawer>
+      </Modal>
+
+      
     </>
   )
 }

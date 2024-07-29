@@ -1,6 +1,6 @@
 
 
-import { ActionIcon, Autocomplete, Badge, Button, Divider, Drawer, Group, LoadingOverlay, Modal, MultiSelect, NumberInput, Select, SimpleGrid, Text, TextInput } from '@mantine/core'
+import { ActionIcon, Autocomplete, Badge, Button, Divider,  Group, LoadingOverlay, Modal,  NumberInput, Select, SimpleGrid, Text, TextInput } from '@mantine/core'
 import { DataTable } from 'primereact/datatable';
 import { FcPlus} from "react-icons/fc";
 import { Column } from 'primereact/column';
@@ -27,6 +27,8 @@ import { FaSearch } from 'react-icons/fa';
 import { TfiWrite } from 'react-icons/tfi';
 import pdfMake from "pdfmake/build/pdfmake";
 import { font } from "./vfs_fonts";
+import { useStore } from './store';
+import { Segmented } from 'antd';
 pdfMake.vfs = font
 
 
@@ -55,6 +57,7 @@ const schema = z.object({
         const {data: Commissions,isLoading: Mload} = useQuery(keyCo,() => getCommissions());
         const navigate = useNavigate();
         const keyA = 'get_Fournisseur';
+        const role = useStore((state) => state.role);
     const {data: Fournisseur,isLoading:loadiAC} = useQuery(keyA,() => getFournisseur());
         
         const form = useForm({
@@ -168,22 +171,30 @@ gradient={{ from: 'blue', to: 'green', deg: 50 }}
 >
 {row.numero_bon}
 </Badge>
-           const actionTemplate = (row) => {
-            return (
-                <div className="flex space-x-2">
-                   <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
+const actionTemplate = (row) => {
+  return  <>
+   {role === 'csa'|| role === 'dg'  ? <div className="flex space-x-2"> 
+    <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
+            <AiOutlineEye/>
+            </ActionIcon>
+   <Segmented
+/></div> : <>
+     <div className="flex space-x-2">
+     <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
                   <AiOutlineEye/>
                   </ActionIcon>
                     <ActionIcon aria-label="default action icon" size="lg" bg="lime" onClick={() => handleUpdate(row)}>
                     <AiFillEdit/>
                   </ActionIcon>
                   <ActionIcon aria-label="default action icon" size="lg" bg="red" onClick={() => handleDelete(row)}>
-                    <HiArchiveBoxXMark/>
+                  <HiArchiveBoxXMark/>
                   </ActionIcon>
-                               
-                </div>
-            );          
-        };
+       
+      </div>
+    </>}
+  </>;
+};
+           
       const produits = form.values.produits.map((item, index,arr) => (
         <div key={item.key} className='flex space-x-1 my-1 items-center justify-center'>
            <Select searchable
@@ -362,42 +373,43 @@ gradient={{ from: 'blue', to: 'green', deg: 50 }}
           </div>
         </form>
         </Modal>
-
-        <Drawer offset={8} radius="md" opened={Yesopened} position="right" onClose={clR} title="Mise a jour reception">
-      <form className={classes.form}  onSubmit={formU.onSubmit((values) => updateM(values))}>
+        <Modal opened={Yesopened} position="right" onClose={clR} title="Mise a jour reception">
+        <form  className={classes.form} onSubmit={formU.onSubmit((values) => updateM(values))}>
         <Text fz="lg" fw={700} className="{classes.title} text-center text-green-800">
-            MODIFIER RECEPTION
+            MODIFIER LA RECEPTION
           </Text>
           <div className={classes.control}>
           <SimpleGrid  mt="md" cols={{ base: 1, sm: 2 }}>
           <DateInput label="DATE" placeholder="date" locale='fr' required {...formU.getInputProps('date')}/>
-          <NumberInput label="NUMERO BON" placeholder="numero bon" required {...formU.getInputProps('numero_bon')}/>
+          <TextInput label="N° FACTURE" placeholder="numero bon" required {...formU.getInputProps('numero_bon')}/>
           <Select  
           label="TYPE" 
           comboboxProps={{ withinPortal: true }}
           data={['PRET', 'COMMANDE', 'DON']}
           required {...formU.getInputProps('type')}/>
-           <MultiSelect
-          label="MATIERE"  mt="md"
-          comboboxProps={{ withinPortal: true }}
-          data={Produits?.map(e => ({label:e.catalogue, value:e._id}))}
-          required {...formU.getInputProps('produits')}/>
-          <NumberInput label="QUANTITE" placeholder="quantite" required {...formU.getInputProps('qte')}/>
-          <Select 
-          label="COMMISSION" placeholder="commission" mt="md" 
+           <Select 
+          label="COMMISSION" placeholder="commission"  
           data={Commissions?.map(e => ({label:e.nom_commission, value:e._id}))}
-          required {...form.getInputProps('commission')}/>
-            </SimpleGrid>
-            <TextInput label="FOURNISSEUR" placeholder="fourniiseur" required {...formU.getInputProps('fournisseur')}/>
+          required {...formU.getInputProps('commission')}/>
+           <Autocomplete 
+          placeholder="fournisseur" 
+          label="FOURNISSEUR" 
+          comboboxProps={{ withinPortal: true }}
+          data={Fournisseur?.map(e => ({label:e.nom_entreprise, value:e._id}))} 
+          required {...formU.getInputProps('fournisseur')} /> 
+            </SimpleGrid>   
+            {produits}
           <Group justify="flex-end" mt="md" >
-          <Button type="submit" bg='cyan'className={classes.control}>
-                MODIFIER
+          <Button type="submit" bg='cyan'className={classes.control} >
+                ENREGISTRER
               </Button>
           </Group>
           <Divider label="@CROUS/Z" labelPosition="center" my="lg" />
           </div>
         </form>
-      </Drawer>
+        </Modal>
+
+      
         </>
       )
     }

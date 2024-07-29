@@ -162,7 +162,7 @@ const renderHeader = () => {
     
     const actionTemplate = (row) => {
         return  <>
-         {role === 'csa' ? <div className="flex space-x-2"> 
+         {role === 'csa'|| role === 'dg'  ? <div className="flex space-x-2"> 
           <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
                   <AiOutlineEye/>
                   </ActionIcon>
@@ -296,8 +296,7 @@ const renderHeader = () => {
           </SimpleGrid>
           <SimpleGrid  mt="md" cols={{ base: 1, sm: 2 }}>  
           </SimpleGrid>
-          
-          
+
           <Group justify="flex-end" mt="md">
           <Button type="submit" bg='cyan' className={classes.control}>
                 MODIFIER

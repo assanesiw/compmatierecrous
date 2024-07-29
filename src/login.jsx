@@ -55,6 +55,7 @@ function Login(props) {
         userState: {
             prenom: data.prenom,
             nom: data.nom,
+            role: data.role,
             id: data.id
         }
     })){

@@ -1,4 +1,4 @@
-import { Button, ScrollArea } from '@mantine/core';
+import { Button,Badge, ScrollArea } from '@mantine/core';
 import classes from './Navbarnested.module.css';
 import { FcPackage, FcPortraitMode, FcStatistics, FcImport, FcShop,  FcRefresh, FcNeutralTrading, FcInspection,} from "react-icons/fc";
 import {  Route, Routes, useNavigate, } from 'react-router-dom';
@@ -21,6 +21,9 @@ import Reception from './Reception';
 import AuthOutlet from '@auth-kit/react-router/AuthOutlet';
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
 import { Popconfirm } from 'antd';
+import { FaRegUserCircle } from 'react-icons/fa';
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
+
 
 
 
@@ -36,11 +39,13 @@ function Acceuil() {
   const navigate = useNavigate();
   const signOut = useSignOut()
 
-
+ 
   const confirm = () => {
     signOut();
     navigate('/login');
   };
+
+  const {prenom,nom, role} = useAuthUser()
  
   return (
     <PrimeReactProvider>
@@ -114,13 +119,25 @@ function Acceuil() {
      <div>
       
 </div>
+
+
     </nav>
     <div className="min-h-full">
-    <nav className="bg-gradient-to-tr from-white to-white">
-    <div className="h-14 w-2/3 mx-auto">
+    <nav className="flex items-center justify-between bg-gradient-to-tr from-white to-white">
+    <div className="flex space-x-10 h-14 w-2/3 mx-auto px-20 mt-4">
     <marquee className="text-green-500 font-bold text-center text-2xl">BIENVENUE DANS LA PAGE D ACCEUIL DE LA GESTION DES BIENS MATERIELES DU CENTRE REGIONALE DES OEUVRES  SOCIALES  DE ZIGUINCHOR</marquee>
     </div>
-    </nav>    
+    <Badge
+size="xl"
+color='gray'
+>
+    <div className='flex items-center text-white font-bold text-center text-1xl space-x-2'>
+       <div >{prenom} {nom} {role} </div>
+    <FaRegUserCircle  className='w-6 h-6 group-hover:text-white mr-10 cursor-pointer' />
+    </div>
+</Badge>
+  
+       </nav> 
     <Routes>
     <Route element={<AuthOutlet fallbackPath='/login' />}>
       <Route path="" element={<Produits/>} />

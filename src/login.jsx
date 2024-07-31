@@ -90,7 +90,7 @@ function Login(props) {
           loaderProps={{ color: 'blue', type: 'bars' }}
         />
     <BackgroundImage src="/comp.jpg" className='h-screen'>
-    <div className=" flex h-screen items-center justify-center w-1/3 mx-auto py-0">
+    <div className=" flex h-screen items-center justify-center w-1/3 mx-auto py-0 text-cyan-500">
      <Paper radius="md" p="xl" withBorder {...props}>
       <Text size="lg" fw={500}>
          GESTION  DES  BIENS  MATERIELS CROUS/Z  

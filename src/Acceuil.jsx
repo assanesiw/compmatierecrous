@@ -119,8 +119,6 @@ function Acceuil() {
      <div>
       
 </div>
-
-
     </nav>
     <div className="min-h-full">
     <nav className="flex items-center justify-between bg-gradient-to-tr from-white to-white">

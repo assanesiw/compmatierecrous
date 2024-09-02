@@ -438,7 +438,7 @@ const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' '
                 ENREGISTRER
               </Button>
           </Group>
-          <Divider label="@CROUS/Z" labelPosition="center" my="lg" />
+          <Divider label="@CROUS/Z" labelPosition="center" my="lg"/>
           </div>
         </form>
       </Modal>

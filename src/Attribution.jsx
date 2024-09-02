@@ -221,7 +221,7 @@ const renderHeader = () => {
         <h1 className='font-bold text-3xl text-center mt-6'>LES SORTIES</h1>
     </div>
     <div className="card">
-        <DataTable filters={filters} value={Attribution} tableStyle={{ minWidth: '6rem' }} loading={isLoading} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} 
+        <DataTable filters={filters} value={Attribution} tableStyle={{ minWidth: '6rem' }} loading={isLoading} paginator rows={15} rowsPerPageOptions={[5, 10, 25, 50]} 
         globalFilterFields={['date','remis', 'bon', 'sortis']} header={header} size="small" stripedRows>
           <Column field="date" header="DATE" body={datetemplate}></Column> 
           <Column field="remis" header="BENEFICIAIRE"></Column>
@@ -306,8 +306,6 @@ const renderHeader = () => {
           </div>
         </form>
      </Drawer>
-
-     
     </>
   )
 }

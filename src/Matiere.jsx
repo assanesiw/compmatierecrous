@@ -51,8 +51,8 @@ function Matiere(){
     const {mutate,isLoading:isLoadingM} = useMutation((val) => createMatiere(val),{
       onSuccess:() => {
         notifications.show({
-          title: 'creation produits',
-          message: 'le produits a ete cree avec succee',
+          title: 'creation hors service',
+          message: 'les hors services ont ete cree avec succee',
           color: 'green'
         })
         qc.invalidateQueries(key);

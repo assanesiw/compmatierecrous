@@ -448,8 +448,7 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                      ...data?.produits.map(m=>{
                       return [{ text: m.produit.catalogue} ,{text: m.produit.uniteConditionnement, alignment:'center'},{text: `${m.qte}`, alignment:'right'},{text: formatNumber(m.produit.prixUnitaire), alignment:'right'},{ text: `${formatNumber(m.produit.prixUnitaire * m.qte)}`, alignment:'right'}]
                    }),
-                     [{text:'TOTAL',fontSize: 16},'',{text:`${data?.produits?.reduce((acc,val) => acc + val.qte ,0)}`, alignment:'right'},'',{text:`${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))}`, alignment:'right'}],
-                    
+                     [{text:'TOTAL',fontSize: 16},'',{text:`${data?.produits?.reduce((acc,val) => acc + val.qte ,0)}`, alignment:'right'},'',{text:`${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))}`, alignment:'right'}],                   
                   ]
                 }
              },

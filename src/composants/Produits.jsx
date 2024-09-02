@@ -377,7 +377,7 @@ const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' '
             
         </div>
  <div className="card mt-6" >
-  <DataTable  filters={filters} footer={footer} value={Produits} tableStyle={{ minWidth: '30rem' }} loading={isLoading} paginator rows={8} rowsPerPageOptions={[6, 16, 26, 51]} size="small" 
+  <DataTable  filters={filters} footer={footer} value={Produits} tableStyle={{ minWidth: '30rem' }} loading={isLoading} paginator rows={15} rowsPerPageOptions={[6, 16, 26, 51]} size="small" 
    globalFilterFields={['date','catalogue', 'emplacement', 'prixUnitaire']} header={header} stripedRows>
                 {/*  <Column field="date" header="DATE" body={datetemplate}></Column>  */}
                 {/*  <Column field="cat" header="CATEGORIE" body={datetemplate}></Column>  */}
@@ -404,7 +404,7 @@ const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' '
         
           <Autocomplete 
           placeholder="libelle"
-          label="LIBELLE" 
+          label="LIBELLE / MATIERE" 
           comboboxProps={{ withinPortal: true }}
           data={Produits?.map(e => ({label:e.catalogue, value:e._id}))} 
           required {...form.getInputProps('catalogue')}/>

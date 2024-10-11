@@ -187,7 +187,7 @@ function Produits() {
 };
 const actionTemplate = (row) => {
   return  <>
-   {role === 'csa'|| role === 'dg'  ? <div className="flex space-x-2"> 
+   {role === 'csa'|| role === 'dg' || role === 'CSAP'  ? <div className="flex space-x-2"> 
     <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
             <AiOutlineEye/>
             </ActionIcon>
@@ -377,7 +377,7 @@ const Ntemplate = (row) => <NumberFormatter  thousandSeparator=' '
             
         </div>
  <div className="card mt-6" >
-  <DataTable  filters={filters} footer={footer} value={Produits} tableStyle={{ minWidth: '30rem' }} loading={isLoading} paginator rows={15} rowsPerPageOptions={[6, 16, 26, 51]} size="small" 
+  <DataTable  filters={filters} footer={footer} value={Produits} tableStyle={{ minWidth: '30rem' }} loading={isLoading} paginator rows={11} rowsPerPageOptions={[6, 16, 26, 51]} size="small" 
    globalFilterFields={['date','catalogue', 'emplacement', 'prixUnitaire']} header={header} stripedRows>
                 {/*  <Column field="date" header="DATE" body={datetemplate}></Column>  */}
                 {/*  <Column field="cat" header="CATEGORIE" body={datetemplate}></Column>  */}

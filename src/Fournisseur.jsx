@@ -135,7 +135,7 @@ function Fournisseur() {
     <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
     <h1 className='font-bold text-3xl text-center mt-6'>LISTE FOURNISSEUR</h1>
     <div className="card mt-6">
-    <DataTable value={Fournisseur} tableStyle={{ minWidth: '50rem' }} loading={isLoading} paginator rows={6} rowsPerPageOptions={[6, 16, 26, 51]} size="small" stripedRows>
+    <DataTable value={Fournisseur} tableStyle={{ minWidth: '50rem' }} loading={isLoading} paginator rows={15} rowsPerPageOptions={[15, 20, 26, 51]} size="small" stripedRows>
                 <Column field="nom_entreprise" header="NOM ENTREPRISE"></Column>
                 <Column field="ninea" header="NINEA"></Column>
                 <Column field="rc" header="REGIE DE COMMERCE"></Column>

@@ -49,8 +49,6 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
                 width:30,
                 height:20,
                 alignment: 'center',
-                
-               
               },
               {text: '\nMINISTERE DE L ENSEIGNEMENT SUPERIEUR, DE LA RECHERCHE ET DE L INNOVATION', fontSize: 10, bold: false, alignment:'center'},
               {text: '--------------', fontSize: 12, bold: false, alignment:'center'},
@@ -510,7 +508,116 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
       }
       pdfMake.createPdf(dd).open();
   }
+  const generer2 = () => {
+    var dd = {
+      pageOrientation:'landscape',
+      content: [
+        {
+          columns: [
+          {
+            stack: [
+              {text: 'REPUBLIQUE DU SENEGAL ', fontSize: 11, bold: true, alignment:'center'},
+              {text: 'Un Peuple - Un But - Une Foi', fontSize: 10, bold: false, alignment:'center'},
+              {text: '------------', fontSize: 10, bold: false, alignment:'center'},
+              {
+                image:photo,
+                width:70,
+                height:30,
+                alignment: 'center'
+               
+              },
+              {text: 'MINISTERE DE L ENSEIGNEMENT SUPERIEUR, DE LA RECHERCHE ET DE L INNOVATION', fontSize: 8, bold: false, alignment:'center'},
+              {text: '--------------', fontSize: 10, bold: false, alignment:'center'},
+              {text: 'CENTRE REGIONAL DES OEUVRES UNIVERSITAIRES SOCIALES DE ZIGUINCHOR (CROUS/Z)', fontSize: 8, bold: false, alignment:'center'},
+              {
+                image,
+                width:70,
+                height:50,
+                alignment: 'center'
+                },
+            ]
+          },
+          {
+            text: ''
+          },
+          {
+            text: [
+              {text: '\nMODEL N 1\n', fontSize: 12, bold: true, alignment:'center'},
+              {text: '\nInstruction générale\n', fontSize: 12, bold: true, alignment:'center'},
+              {text: 'Art. 12 a. 12 c. 19 a.\n', fontSize: 12, bold:true, alignment:'center'},
+              {text: '\nAnnée budgétaire 2024\n', fontSize: 12, bold: true, alignment:'center'},  
+            ]
+          }
+      
+          ]
+        },
+        {
+          style: 'tableExample',
+          
+          margin: [20, 10],
+          table: {
+            widths: ['*'],
+            body: [
+              [{text:  `BON D'ENTREE N°: ${data?.n_bon}`,color:'black', fontSize: 25, bold: true, alignment:'center'},],
+            ]
+          }
+        },
+        
+         {/*  {
+                  style: 'tableExample',
+                  table: {
+                      body: [
+                          ['PRENOM', 'NOM', 'FONCTION','SIGNATURE'],
+                           // eslint-disable-next-line no-unsafe-optional-chaining
+                           ...data?.commission.membres.map(m =>{ 
+                              return  [m.prenom, m.nom, m.fonction,''];
+                          })
+                      ]
+                  }
+              }, */},
+        {
+          style: 'tableExample',
+          color: '#444',
+          alignment:'center',
+          bold:true,
+          table: {
+            widths: [100,150, 90, 120,130,100],
+            
+            // keepWithHeaderRows: 1,
+            body: [
+              [{text: 'N° Compte Nomenclature', style: 'tableHeader', alignment: 'center', bold:true, color:'black', fontSize:'14'},{text: 'DESIGNATION DES MATIERES', style: 'tableHeader', alignment: 'center', bold:true, color:'black', fontSize:'14'}, {text: 'QUANTITE', bold:true, style: 'tableHeader', alignment: 'center',color:'black',fontSize:'14'},{text: 'PRIX UNITAIRE', style: 'tableHeader', alignment: 'center', bold:true, color:'black', fontSize:'14'},{text: 'MONTANT',rowSpan: 1, style: 'tableHeader', alignment: 'center', bold:true,color:'black', fontSize:'14'},{text: 'OBSERVATION', style: 'tableHeader', alignment: 'center', bold:true, color:'black', fontSize:'14'}],
+              // eslint-disable-next-line no-unsafe-optional-chaining
+              ...data?.produits.map(m=>{
+                return['',m.produit.catalogue,`${m.qte}`,formatNumber(m.produit.prixUnitaire),`${formatNumber(m.produit.prixUnitaire*m.qte)}`,m.produit.observation];
+              }) ,
+              [{text:'' ,color:'blue', bold:true,fontSize: 16},{text:'TOTAUX' ,color:'black', bold:true,fontSize: 16},{text:`${data?.produits?.reduce((acc,val) => acc + val.qte ,0)}`,color:'black', fontSize:14},'',{text:`${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))}`, color:'black', fontSize:'14'},'']       
+            ]              
+          }
+        },
+       
+        {
+          style: 'tableExample',
+          color: '#444',
+          table: {
+            widths: [250,216,250],
+            
+            // keepWithHeaderRows: 1,
+            body: [
+              [{text: `AUGMENTATION DES PRISES EN CHARGES\nLe comptable des matières sousignè \n\nDèclare ce jours, augmentater ses prises en charge de ${data?.produits?.reduce((acc,val) => acc + val.qte ,0)} unitès reprèsentent une valeur de : ${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))} FRANCS CFA  \n\n A Ziguinchor, le ${format(data?.date,'dd/MM/yyyy')} \n\n\n Le comptable des matieres(${data?.produits?.reduce((acc,val) => acc + val.qte ,0)}) `, style: 'tableHeader', alignment: 'center', bold:true},
 
+               {text: `CERTIFICATION\nArrêté le présent bon à ${data?.produits?.reduce((acc,val) => acc + val.qte ,0)} Unités
+               Représentant une valeur de ${formatNumber(data?.produits?.reduce((acc,val) => acc + ( parseInt(val.produit.prixUnitaire,10) * val.qte) ,0))}  FRANCS CFA \n\nDont je certifie l'entrèe dans l'existant.\n\nA Ziguinchor, le ${format(data?.date,'dd/MM/yyyy')}\n\n\n\nL’Administrateur des matières(${data?.produits?.reduce((acc,val) => acc + val.qte ,0)})`,fontSize: 11, style: 'tableHeader', alignment: 'center', bold:true},
+               {text: `(1)Numérotation interrompu pour la gestion.\n(2) Dans l’ordre des articles décrits sur les pièces justificatives ou dans l’ordre des comptes de la nomenclature.\n(3) Litre, Kg, Mètre, Nbre, ect.\n(4) Nom et qualité.\n(5) Timbre et signature bon à établir en trois exemplaires.\n(6) A justifier éventuellement….`,rowSpan: 1,fontSize: 11, style: 'tableHeader', alignment: 'justify', bold:true}],
+              // eslint-disable-next-line no-unsafe-optional-chaining
+                     
+            ]
+            
+          }
+        },
+      ]
+    }
+    pdfMake.createPdf(dd).open();
+  }
     const rows = data?.produits.map((element) => (
         <Table.Tr key={element.produit._id}>
           <Table.Td>{element.produit.catalogue}</Table.Td>
@@ -520,7 +627,6 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
           <Table.Td>{element.produit.observation}</Table.Td>
         </Table.Tr>
       ));
-     
 
       const membres = data?.commission?.membres.map((element) => (
         <Table.Tr key={element._id}>
@@ -534,6 +640,7 @@ const formatNumber = (n) => String(n).replace(/(.)(?=(\d{3})+$)/g,'$1 ')
     <div className="mx-10">
     <div className="flex items-center justify-between px-20 mt-4 ">
     <Button className='w-45 h-12 font-bold' bg='blue' onClick={() => generer()} >PV RECEPTION AVEC TTC</Button>
+    <Button className='w-45 h-12 font-bold' bg='green' onClick={() => generer2()} >GENERER BON ENTREE</Button>
      <Button className='w-45 h-12 font-bold' bg='yellow' onClick={() => generer1()} >PV RECEPTION SANS TTC</Button>    
     </div>
     <div className="my-5 text-3xl font-semibold text-center  mt-4 ">

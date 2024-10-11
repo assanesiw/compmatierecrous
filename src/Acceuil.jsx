@@ -1,6 +1,6 @@
 import { Button,Badge, ScrollArea, Modal, Stack, PasswordInput, Group, Popover, LoadingOverlay } from '@mantine/core';
 import classes from './Navbarnested.module.css';
-import { FcPackage, FcPortraitMode, FcStatistics, FcImport, FcShop,  FcRefresh, FcNeutralTrading, FcInspection,} from "react-icons/fc";
+import { FcPackage, FcPortraitMode, FcStatistics, FcImport, FcShop,  FcRefresh, FcNeutralTrading, FcInspection, FcManager,} from "react-icons/fc";
 import {  Route, Routes, useNavigate, } from 'react-router-dom';
 import { RiMenu3Fill } from "react-icons/ri";
 import Produits from './composants/Produits';
@@ -29,6 +29,8 @@ import { notifications } from '@mantine/notifications';
 import { zodResolver } from 'mantine-form-zod-resolver';
 import { useForm } from '@mantine/form';
 import { z } from 'zod';
+import Users from './Users';
+import { Can } from './casl/Can';
 
 const schema = z.object({
   password:z.string()
@@ -126,6 +128,17 @@ function Acceuil() {
  <FcInspection className='w-6 h-6 group-hover:text-white'/>
  <Button className='text-black font-bold hover:bg-transparent'  fullWidth onClick={() => navigate('Inventaire')}>INVENTAIRE</Button>
  </div>
+ <div className="flex items-center justify-center hover:bg-blue-500 px-2 group py-1">
+
+ <Button className='text-black font-bold hover:bg-transparent'  fullWidth ></Button>
+ </div>
+ <Can I={role} a='view'>
+  <div className="flex items-center justify-center hover:bg-blue-500 px-2 group py-1">
+ <FcManager className='w-10 h-10 group-hover:text-white'/>
+ <Button className='text-black font-bold hover:bg-transparent text-1xl' onClick={()=> navigate('Users')}>UTILISATEURS</Button>
+ </div>
+ </Can>
+ 
   </div>
   <LoadingOverlay
           visible={isLoading}
@@ -143,8 +156,6 @@ function Acceuil() {
     okButtonProps={{className:'bg-green-500'}}
     cancelText="NON"
     onConfirm={confirm}
-   
-    
   >
     <Button className='mt-6 w-45 h-12 font-bold text-center' bg='green'>DECONNECTER</Button>
   </Popconfirm>
@@ -173,7 +184,7 @@ color='gray'
         </Button>
       </Popover.Target>
       <Popover.Dropdown bg="var(--mantine-color-body)">
-      
+   
       {prenom} {nom}
       <div className=" items-center justify-between py-3 mt-4 ">
         <Popconfirm
@@ -214,7 +225,7 @@ color='gray'
        </nav> 
     <Routes>
     <Route element={<AuthOutlet fallbackPath='/login' />}>
-      <Route path="" element={<Produits/>} />
+       <Route path="" element={<Produits/>} />
        <Route path="produits" element={<Produits/>}/>
        <Route path="produits/:id" element={<Produit/>}/>
        <Route path="matieres" element={<Matiere/>}/>
@@ -226,9 +237,11 @@ color='gray'
        <Route path="commission/:id" element={<Affichemembre/>}/>
        <Route path="fournisseur" element={<Fournisseur/>} />
        <Route path="suivi" element={<Suivi/>}/>
+       <Route path="users" element={<Users/>}/>
        <Route path="suivi/:id" element={<Tecn/>}/>
        <Route path="catalogue" element={<Catalogue/>}/>
        <Route path="inventaire" element={<Inventaire/>} />
+       <Route path="Users"  element={<Users/>}/>
     </Route>
        
       </Routes>

@@ -172,7 +172,7 @@ gradient={{ from: 'blue', to: 'green', deg: 50 }}
 </Badge>
 const actionTemplate = (row) => {
   return  <>
-   {role === 'csa'|| role === 'dg'  ? <div className="flex space-x-2"> 
+   {role === 'csa'|| role === 'dg' || role === 'CSAP'  ? <div className="flex space-x-2"> 
     <ActionIcon aria-label="default action icon" size="lg" bg="blue" onClick={() => handleView(row)}>
             <AiOutlineEye/>
             </ActionIcon>

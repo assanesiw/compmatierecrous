@@ -99,7 +99,7 @@ function Catalogue() {
     <Button className='w-45 h-12 font-bold' bg='yellow'  leftSection={<FcPlus/>}  onClick={opc}>MATIERE DANS LA BD </Button>  
     </div>
     <div className="card mt-6">
-    <DataTable value={Catalogue} loading={isLoading} tableStyle={{ minWidth: '30rem' }} paginator rows={8} rowsPerPageOptions={[6, 16, 26, 51]} size="small" stripedRows>
+    <DataTable value={Catalogue} loading={isLoading} tableStyle={{ minWidth: '30rem' }} paginator rows={15} rowsPerPageOptions={[6, 16, 26, 51]} size="small" stripedRows>
         <Column field="categorie" header="CATEGORIE"></Column>
          <Column header="ACTION"  body={actionTemplate} style={{ minWidth: '4rem' }}></Column>
     </DataTable>
